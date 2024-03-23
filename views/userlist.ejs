@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-8">
+        <h4 class="font-weight-bold">All users</h4>
+      </div>
+      <div class="col-4">
+        <a href="/adduser" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add New</a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Role</th>
+          <th scope="col">Address</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(users.length > 0) { %> <% for(let user of users) { %>
+        <tr>
+          <th scope="row"><%= user.username %></th>
+          <td><%= user.role %></td>
+          <td><%= user.address %></td>
+          <td>
+            <a href="/updateuser/<%= user._id %>" class="btn btn-sm btn-warning"
+              ><i class="fa fa-edit" title="edit user"></i
+            ></a>
+            <a href="/deleteuser/<%= user._id %>" class="btn btn-sm btn-danger"
+              ><i class="fa fa-trash" title="delete user"></i
+            ></a>
+            <a href="/<%= user._id %>/task" class="btn btn-sm btn-danger"
+              ><i class="fa fa-bars" title="user tasks"></i
+            ></a>
+            <a href="/<%= user._id %>/addtask" class="btn btn-sm btn-danger"
+              ><i class="fa fa-plus" title="add task"></i
+            ></a>
+          </td>
+        </tr>
+        <% } %> <% } else { %>
+        <tr>
+          <td>No data found</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

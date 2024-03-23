@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-8">
+        <h4 class="font-weight-bold"><%= username %> tasks</h4>
+      </div>
+      <div class="col-4">
+        <a href="/<%= id %>/addtask" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add New Task</a>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">title</th>
+          <th scope="col">completed</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(tasks.length > 0) { %> <% for(let task of tasks) { %>
+        <tr>
+          <th scope="row"><%= task.title %></th>
+          <td><%= task.completed %></td>
+          <td>
+            <a href="/updatetask/<%= task._id %>" class="btn btn-sm btn-warning"
+              ><i class="fa fa-edit" title="edit task"></i
+            ></a>
+            <a href="/deletetask/<%= task._id %>" class="btn btn-sm btn-danger"
+              ><i class="fa fa-trash" title="delete task"></i
+            ></a>
+          </td>
+        </tr>
+        <% } %> <% } else { %>
+        <tr>
+          <td>No data found</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

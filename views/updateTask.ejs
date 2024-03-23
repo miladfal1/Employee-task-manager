@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="font-weight-bold">Update task</h4>
+  </div>
+  <div class="card-body">
+    <form action="/updatetask/<%= task._id %>" method="post">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="title">task title</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              value="<%= task.title %>"
+              placeholder="enter title"
+              id="title"
+            />
+            <label class="col-form-label" for="completed">completed</label>
+            <input type="checkbox" name="completed" id="completed" />
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="/" class="btn btn-light">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

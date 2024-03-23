@@ -1,0 +1,30 @@
+.logo {
+    width: 30%;
+    aspect-ratio: 1/1;
+    text-align: center;
+}
+
+.logo-div {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.home-menu {
+    line-height: 100%;
+    height: 100%;
+    text-align: center;
+    text-decoration: none !important;
+    padding: 18px;
+    background-color: rgb(242, 234, 132);
+    border-radius: 6px;
+    color: black;
+}
+
+.menu-div {
+    line-height: 100%;
+    height: 100%;
+}
+
+.col-center {
+    text-align: center;
+}

@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="font-weight-bold">Add New Task</h4>
+  </div>
+  <div class="card-body">
+    <form action="/deleteuser/<%= user._id %>" method="post">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="title">title</label>
+            <input type="text" class="form-control" name="title" placeholder="enter task title" id="title" />
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <button itype="submt" class="btn btn-success">Submit</button>
+        <a href="/" class="btn btn-light">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

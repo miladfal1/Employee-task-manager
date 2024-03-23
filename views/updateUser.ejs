@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="font-weight-bold">Update user</h4>
+  </div>
+  <div class="card-body">
+    <form action="/updateuser/<%= user._id %>" method="post">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="firstname">User Name</label>
+            <input
+              type="text"
+              class="form-control"
+              value="<%= user.username %>"
+              name="username"
+              placeholder="enter user name"
+              id="firstname"
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="lastname">Password</label>
+            <input type="text" class="form-control" name="password" placeholder="enter password" id="lastname" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="phonenumber">Phone Number</label>
+            <input
+              type="number"
+              class="form-control"
+              value="<%= user.phonenumber %>"
+              name="phonenumber"
+              placeholder="enter your phone number"
+              id="phonenumber"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="addres">Address</label>
+            <textarea class="form-control" name="address" id="address" rows="3">
+                        <%= user.address %>
+                        </textarea
+            >
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="/" class="btn btn-light">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
