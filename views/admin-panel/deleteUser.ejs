@@ -1,12 +1,15 @@
+<%- include('../partials/adminHead.ejs') %>
+
+
 <div class="jumbotron">
     <div class="row">
         <div class="col-8">
             <h4 class="font-weight-bold"><%= user.username %></h4>
             <p class="lead">Alert! do you want to delete this user??</p>
             <p class="lead">
-            <form action="/deleteuser/<%= user._id %>" method="POST">
+            <form action="/admin/deleteuser/<%= user._id %>" method="POST">
                 <button class="btn btn-danger btn-lg" type="submit">Delete</button>
-                <a class="btn btn-light btn-lg" href="/alluser">Cancel</a>
+                <a class="btn btn-light btn-lg" href="/admin/allusers">Cancel</a>
             </form>
             </p>
         </div>

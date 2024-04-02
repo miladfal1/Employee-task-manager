@@ -1,35 +1,34 @@
 const express = require("express");
 const {
-  homePage,
   getAllUsers,
-  getAddUser,
-  addUser,
+  getSignup,
+  signup,
   getUpdateUser,
   updateUser,
   getDeleteUser,
   deleteUser,
   profile,
-  getRegister,
-  register,
+  getAddEmployee,
+  getAllEmployee,
+  addEmployee,
+  getDeleteEmployee,
+  deleteEmployee,
 } = require("../controllers/userController");
 const { getLogin, login, Logout } = require("../controllers/authController");
-const { checkUser, isAdmin } = require("../middleware/authMiddleware");
+const { auth, checkUser, isAdmin, checkEmployee } = require("../middleware/authMiddleware");
 
 const router = express.Router();
-router.get("*", checkUser);
 
-router.get("/", homePage);
-router.get("/alluser", isAdmin, getAllUsers);
-router.get("/updateuser/:id", getUpdateUser);
-router.post("/updateuser/:id", updateUser);
-router.get("/deleteuser/:id", getDeleteUser);
-router.post("/deleteuser/:id", deleteUser);
-router.get("/profile/:id", profile);
-router.get("/adduser", isAdmin, getAddUser);
-router.post("/adduser", addUser);
-
-router.route("/register").get(getAddUser);
-router.route("/login").get(getLogin).post(login);
+router.route("/admin").get(getLogin).post(login);
 router.route("/logout").get(Logout);
+
+router.get("/admin/allusers", auth, getAllUsers);
+router.route("/admin/signup").get(isAdmin, getSignup).post(signup);
+router.route("/admin/updateuser/:id").get(isAdmin, getUpdateUser).post(updateUser);
+router.route("/admin/deleteuser/:id").get(isAdmin, getDeleteUser).post(deleteUser);
+
+router.route("/admin/allemployee").get(auth, getAllEmployee);
+router.route("/admin/addemployee").get(auth, getAddEmployee).post(addEmployee);
+router.route("/admin/deleteemployee/:id").get(auth, getDeleteEmployee).post(deleteEmployee);
 
 module.exports = router;

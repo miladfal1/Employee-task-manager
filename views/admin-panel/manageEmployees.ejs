@@ -1,0 +1,59 @@
+<%- include('./partials/adminHead.ejs') %>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-8">
+        <h4 class="font-weight-bold">All Employee</h4>
+      </div>
+      <div class="col-2">
+        <a href="/admin/addemployee" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add Employee</a>
+      </div>
+      <div class="col-2">
+        <a href="/admin/allemployee" class="btn btn-success float-right"
+          ><i class="fa fa-bars mr-1"></i>All Employees</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Address</th>
+          <th scope="col">Role</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(Employees.length > 0) { %> <% for(let Employee of Employees) { %>
+        <tr>
+          <th scope="row"><%= Employee.name %></th>
+          <td><%= Employee.phonenumber %></td>
+          <td><%= Employee.address %></td>
+          <td><%= Employee.role %></td>
+          <td>
+            <a href="/<%= Employee._id %>/task" class="btn btn-sm btn-danger"
+              ><i class="fa fa-bars" title="all tasks"></i
+            ></a>
+            <a href="/<%= Employee._id %>/addtask" class="btn btn-sm btn-danger"
+              ><i class="fa fa-plus" title="add task"></i
+            ></a>
+            <a href="/admin/deleteemployee/<%= Employee._id %>" class="btn btn-sm btn-danger"
+              ><i class="fa fa-trash" title="delete employee"></i
+            ></a>
+          </td>
+        </tr>
+        <% } %> <% } else { %>
+        <tr>
+          <td>No data found</td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>

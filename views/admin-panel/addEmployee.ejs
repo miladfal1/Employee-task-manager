@@ -1,0 +1,57 @@
+<%- include('../partials/adminHead.ejs') %>
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="font-weight-bold">Add New Employee</h4>
+  </div>
+  <div class="card-body">
+    <form action="/admin/addemployee" method="post">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="name">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="enter Employee name" id="name" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="password">password</label>
+            <input type="text" class="form-control" name="password" placeholder="enter password" id="password" />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="phonenumber">Phone Number</label>
+            <input
+              type="number"
+              class="form-control"
+              name="phonenumber"
+              placeholder="enter your phone number"
+              id="phonenumber"
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="col-form-label" for="role">Role</label>
+            <select type="selectbox" class="form-control" name="role" id="role">
+              <option value="frontend">FrontEnd</option>
+              <option value="backend">Backend</option>
+              <option value="marketing">Marketing</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label for="addres">Address</label>
+            <textarea class="form-control" name="address" id="address" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <button itype="submt" class="btn btn-success">Submit</button>
+        <a href="/" class="btn btn-light">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

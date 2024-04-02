@@ -1,9 +1,6 @@
 const User = require("../models/user");
 const Task = require("../models/tasks");
-
-const homePage = async (req, res) => {
-  res.render("home");
-};
+const Employee = require("../models/employee");
 
 const getAllUsers = async (req, res) => {
   const list = await User.find().exec();
@@ -12,11 +9,11 @@ const getAllUsers = async (req, res) => {
   });
 };
 
-const getAddUser = (req, res) => {
-  res.render("addUser");
+const getSignup = (req, res) => {
+  res.render("signup");
 };
 
-const addUser = async (req, res) => {
+const signup = async (req, res) => {
   const data = req.body;
   const user = await User.create({
     username: data.username,
@@ -24,22 +21,7 @@ const addUser = async (req, res) => {
     phonenumber: data.phonenumber,
     address: data.address,
   });
-  res.redirect("/alluser");
-};
-
-const getRegister = (req, res) => {
-  res.render("addUser");
-};
-
-const register = async (req, res) => {
-  const data = req.body;
-  const user = await User.create({
-    username: data.username,
-    password: data.password,
-    phonenumber: data.phonenumber,
-    address: data.address,
-  });
-  res.redirect("/alluser");
+  res.redirect("/admin/allusers");
 };
 
 const getUpdateUser = async (req, res) => {
@@ -64,12 +46,13 @@ const updateUser = async (req, res) => {
       password: data.password,
       phonenumber: data.phonenumber,
       address: data.address,
+      role: data.role,
     },
     { new: true }
   );
   if (!user) return res.status(404).send("User with the given id not found");
 
-  res.redirect("/alluser");
+  res.redirect("/admin/allusers");
 };
 
 const getDeleteUser = async (req, res) => {
@@ -89,7 +72,56 @@ const deleteUser = async (req, res) => {
     const id = req.params.id;
     const user = await User.findByIdAndRemove(id);
     if (!user) return res.status(404).send("User with the given id not found");
-    res.redirect("/alluser");
+    res.redirect("/admin/allusers");
+  } catch (error) {
+    res.status(400).send(error.message);
+    res.redirect("/admin/allusers");
+  }
+};
+
+//employee management
+
+const getAllEmployee = async (req, res) => {
+  const list = await Employee.find().exec();
+  res.render("manageEmployees", {
+    Employees: list,
+  });
+};
+
+const getAddEmployee = (req, res) => {
+  res.render("addEmployee");
+};
+
+const addEmployee = async (req, res) => {
+  const data = req.body;
+  const employee = await Employee.create({
+    name: data.name,
+    password: data.password,
+    phonenumber: data.phonenumber,
+    address: data.address,
+    role: data.role,
+  });
+  res.redirect("/admin/allemployee");
+};
+
+const getDeleteEmployee = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const oneEmployee = await Employee.findById(id).exec();
+    res.render("deleteEmployee", {
+      employee: oneEmployee,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+const deleteEmployee = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const employee = await Employee.findByIdAndRemove(id);
+    if (!employee) return res.status(404).send("Employee with the given id not found");
+    res.redirect("/admin/allemployee");
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -113,15 +145,17 @@ const profile = async (req, res) => {
 };
 
 module.exports = {
-  homePage,
   getAllUsers,
-  getAddUser,
-  addUser,
+  getSignup,
+  signup,
   getUpdateUser,
   updateUser,
   getDeleteUser,
   deleteUser,
   profile,
-  getRegister,
-  register,
+  getAllEmployee,
+  getAddEmployee,
+  addEmployee,
+  getDeleteEmployee,
+  deleteEmployee,
 };

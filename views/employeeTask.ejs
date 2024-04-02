@@ -1,12 +1,15 @@
+<%- include('./partials/head.ejs') %>
+
 <div class="card">
   <div class="card-header">
     <div class="row">
       <div class="col-8">
-        <h4 class="font-weight-bold"><%= username %> tasks</h4>
+        <h4 class="font-weight-bold"><%= name %> tasks</h4>
       </div>
       <div class="col-4">
         <a href="/<%= id %>/addtask" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add New Task</a>
       </div>
+      
     </div>
   </div>
   <div class="card-body">
@@ -41,3 +44,5 @@
     </table>
   </div>
 </div>
+
+<%- include('./partials/footer.ejs') %>

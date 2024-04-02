@@ -1,3 +1,5 @@
+<%- include('./partials/head.ejs') %>
+
 <div class="card">
   <div class="card-header">
     <div class="row">
@@ -10,16 +12,16 @@
     <table class="table table-hover">
       <thead class="table-dark">
         <tr>
-          <th class="col-3">Username</th>
+          <th class="col-3">Name</th>
           <th class="col-3">Phone Number</th>
           <th class="col-3">Address</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row"><%= user.username %></th>
-          <td><%= user.phonenumber %></td>
-          <td><%= user.address %></td>
+          <th scope="row"><%= employee.name %></th>
+          <td><%= employee.phonenumber %></td>
+          <td><%= employee.address %></td>
         </tr>
       </tbody>
     </table>
@@ -53,3 +55,5 @@
     </table>
   </div>
 </div>
+
+<%- include('./partials/footer.ejs') %>

@@ -1,14 +1,14 @@
 const Task = require("../models/tasks");
-const User = require("../models/user");
+const Employee = require("../models/employee");
 
 const getUserTask = async (req, res) => {
   const id = req.params.id;
   const list = await Task.find({ owner: id });
-  const findUser = await User.findById(id);
-  const username = findUser.username;
-  res.render("userTask", {
+  const findEmployee = await Employee.findById(id);
+  const name = findEmployee.name;
+  res.render("employeeTask", {
     tasks: list,
-    username,
+    name,
     id,
   });
 };
@@ -27,7 +27,7 @@ const createTask = async (req, res) => {
     title: title,
     owner: id,
   });
-  res.redirect(`/${id}/task`);
+  res.redirect(`/admin/allemployee`);
 };
 
 const getDeleteTask = async (req, res) => {
@@ -48,7 +48,7 @@ const deleteTask = async (req, res) => {
     const task = await Task.findByIdAndRemove(id);
     if (!task) return res.status(404).send("task with the given id not found");
     const owner = task.owner;
-    res.redirect(`/${owner}/task`);
+    res.redirect(`/admin/allemployee`);
   } catch (error) {
     res.status(400).send(error.message);
   }

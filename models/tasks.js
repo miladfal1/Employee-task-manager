@@ -10,7 +10,10 @@ const taskSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Employee",
+  },
+  solution: {
+    type: String,
   },
 });
 

@@ -16,16 +16,16 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: findUser._id }, "my secret", { expiresIn: "1d" });
     res.cookie("jwt", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
     console.log(`${findUser.username} is logged in`);
-    res.redirect("/");
+    res.redirect("/admin/allusers");
   } catch (err) {
     console.log(err.message);
-    res.redirect("/login");
+    res.redirect("/admin");
   }
 };
 
 const Logout = async (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+  res.redirect("/admin");
 };
 
 module.exports = {

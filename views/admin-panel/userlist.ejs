@@ -1,11 +1,21 @@
+<%- include('../partials/adminHead.ejs') %>
+
 <div class="card">
   <div class="card-header">
     <div class="row">
-      <div class="col-8">
+      <div class="col-6">
         <h4 class="font-weight-bold">All users</h4>
       </div>
-      <div class="col-4">
-        <a href="/adduser" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add New</a>
+      <div class="col-2">
+        <a href="/admin/signup" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add User</a>
+      </div>
+      <div class="col-2">
+        <a href="/admin/addemployee" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add Employee</a>
+      </div>
+      <div class="col-2">
+        <a href="/admin/allemployee" class="btn btn-success float-right"
+          ><i class="fa fa-bars mr-1"></i>All Employees</a
+        >
       </div>
     </div>
   </div>
@@ -15,7 +25,7 @@
         <tr>
           <th scope="col">Username</th>
           <th scope="col">Role</th>
-          <th scope="col">Address</th>
+          <th scope="col">Phone Number</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>
@@ -24,19 +34,13 @@
         <tr>
           <th scope="row"><%= user.username %></th>
           <td><%= user.role %></td>
-          <td><%= user.address %></td>
+          <td><%= user.phonenumber %></td>
           <td>
-            <a href="/updateuser/<%= user._id %>" class="btn btn-sm btn-warning"
+            <a href="/admin/updateuser/<%= user._id %>" class="btn btn-sm btn-warning"
               ><i class="fa fa-edit" title="edit user"></i
             ></a>
-            <a href="/deleteuser/<%= user._id %>" class="btn btn-sm btn-danger"
+            <a href="/admin/deleteuser/<%= user._id %>" class="btn btn-sm btn-danger"
               ><i class="fa fa-trash" title="delete user"></i
-            ></a>
-            <a href="/<%= user._id %>/task" class="btn btn-sm btn-danger"
-              ><i class="fa fa-bars" title="user tasks"></i
-            ></a>
-            <a href="/<%= user._id %>/addtask" class="btn btn-sm btn-danger"
-              ><i class="fa fa-plus" title="add task"></i
             ></a>
           </td>
         </tr>

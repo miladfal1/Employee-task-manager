@@ -1,3 +1,12 @@
+body {
+    width: 80%;
+    margin: 0 auto;
+}
+
+nav {
+    width: 100%;
+}
+
 .logo {
     width: 30%;
     aspect-ratio: 1/1;
