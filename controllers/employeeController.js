@@ -3,6 +3,8 @@ const Task = require("../models/tasks");
 const jwt = require("jsonwebtoken");
 
 const homePage = async (req, res) => {
+  const id = req.params.id;
+  const oneEmployee = await Employee.findById(id).exec();
   res.render("home");
 };
 
@@ -59,8 +61,6 @@ const updateEmployee = async (req, res) => {
 
   res.redirect("/employees");
 };
-
-
 
 //profile
 

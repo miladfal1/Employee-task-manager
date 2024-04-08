@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
       }
     });
   } else {
-    res.redirect("/admin");
+    res.redirect("/");
   }
 };
 

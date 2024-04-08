@@ -9,7 +9,6 @@
       <div class="col-4">
         <a href="/<%= id %>/addtask" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add New Task</a>
       </div>
-      
     </div>
   </div>
   <div class="card-body">
@@ -32,6 +31,9 @@
             ></a>
             <a href="/deletetask/<%= task._id %>" class="btn btn-sm btn-danger"
               ><i class="fa fa-trash" title="delete task"></i
+            ></a>
+            <a href="/solution/<%= task._id %>" class="btn btn-sm btn-info"
+              ><i class="fa fa-angle-down" title="solution"></i
             ></a>
           </td>
         </tr>

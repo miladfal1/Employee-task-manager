@@ -15,7 +15,7 @@ const {
   deleteEmployee,
 } = require("../controllers/userController");
 const { getLogin, login, Logout } = require("../controllers/authController");
-const { auth, checkUser, isAdmin, checkEmployee } = require("../middleware/authMiddleware");
+const { auth, isAdmin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 

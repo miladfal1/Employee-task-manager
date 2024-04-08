@@ -1,10 +1,10 @@
 <%- include('./partials/head.ejs') %>
 
-<div class="card">
+<div class="card col-center">
   <div class="card-header">
     <div class="row">
-      <div class="col-8">
-        <h4 class="font-weight-bold">All Employee</h4>
+      <div class="col-8 card-h4">
+        <h4 class="font-weight-bold text-start">All Employees</h4>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
           <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="table-body">
         <% if(Employees.length > 0) { %> <% for(let Employee of Employees) { %>
         <tr>
           <th scope="row"><%= Employee.name %></th>

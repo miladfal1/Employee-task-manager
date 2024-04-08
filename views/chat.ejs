@@ -1,0 +1,123 @@
+<%- include('./partials/head.ejs') %>
+    <style>
+      body {
+        margin: 0;
+        padding-bottom: 3rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      #form {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 0.25rem;
+        position: fixed;
+        bottom: 0;
+        width: 50%;
+        display: flex;
+        height: 3rem;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+      }
+      #room {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 0.25rem;
+        position: fixed;
+        top: 20%;
+        height: 9rem;
+        left: 0;
+        width: 15%;
+        display: flex;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+      }
+      #input {
+        border: none;
+        padding: 0 1rem;
+        flex-grow: 1;
+        border-radius: 2rem;
+        margin: 0.25rem;
+      }
+      #input:focus {
+        outline: none;
+      }
+      #form > button {
+        background: #333;
+        border: none;
+        padding: 0 1rem;
+        margin: 0.25rem;
+        border-radius: 3px;
+        outline: none;
+        color: #fff;
+      }
+
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages > li {
+        padding: 0.5rem 1rem;
+      }
+      #messages > li:nth-child(odd) {
+        background: #efefef;
+      }
+    </style>
+      <title>Chat Room</title>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const socket = io();
+    
+          const username = "<%= employee.name %>";
+          function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+          }
+          const roomName = getQueryParam("room");
+          document.getElementById("room-name").innerText = roomName || "اتاق نامشخص";
+    
+          socket.emit('joinRoom', { username, room: roomName });
+    
+          // Listen for messages from the server
+          socket.on('message', function(message) {
+            outputMessage(message);
+            window.scrollTo(0, document.body.scrollHeight);
+          });
+    
+          const form = document.getElementById("form");
+          form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const input = document.getElementById("input");
+            if (input.value) {
+              socket.emit("chatMessage", input.value);
+              input.value = "";
+            }
+          });
+    
+          function outputMessage(message) {
+            const ul = document.getElementById("messages");
+            const li = document.createElement("li");
+            li.innerText = `${message.username}: ${message.text} (${message.time})`;
+            ul.appendChild(li);
+          }
+        });
+      </script>
+    </head>
+    <body>
+    <div id="room">
+      <p>room name:</p> <span id="room-name"></span>
+    </div>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+
+    
+
+
+    
+ 
+
+
+
+
+<%- include('./partials/footer.ejs') %>

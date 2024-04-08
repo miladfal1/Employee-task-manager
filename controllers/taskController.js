@@ -68,10 +68,14 @@ const getUpdateTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   const id = req.params.id;
-  let { title, completed } = req.body;
+  let { title, completed, solution } = req.body;
   completed = completed === "on" ? true : false;
   try {
-    const task = await Task.findByIdAndUpdate(id, { title: title, completed: completed }, { new: true });
+    const task = await Task.findByIdAndUpdate(
+      id,
+      { title: title, completed: completed, solution: solution },
+      { new: true }
+    );
     const findUser = task.owner;
     res.redirect(`/${findUser}/task`);
   } catch (err) {
