@@ -83,4 +83,25 @@ const updateTask = async (req, res) => {
   }
 };
 
-module.exports = { getCreateTask, createTask, getUserTask, getDeleteTask, deleteTask, getUpdateTask, updateTask };
+const getTaskSolution = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const oneTask = await Task.findById(id).exec();
+    res.render("taskSolution", {
+      task: oneTask,
+    });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+module.exports = {
+  getCreateTask,
+  createTask,
+  getUserTask,
+  getDeleteTask,
+  deleteTask,
+  getUpdateTask,
+  updateTask,
+  getTaskSolution,
+};

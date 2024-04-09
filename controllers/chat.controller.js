@@ -1,7 +1,6 @@
-// server.js یا هر نامی که برای فایل سرور خود استفاده می‌کنید
 const users = [];
 const moment = require("moment");
-const botName = "Yoohoo";
+const botName = "Bot";
 
 function formatMessage(username, text) {
   return {
@@ -39,7 +38,7 @@ const chatroom = function (io) {
       socket.join(user.room);
 
       // Welcome current user
-      socket.emit("message", formatMessage(botName, "Welcome to Yoohoo!"));
+      socket.emit("message", formatMessage(botName, "Welcome to Chatroom!"));
 
       // Broadcast when a user connects
       socket.broadcast.to(user.room).emit("message", formatMessage(botName, `${user.username} has joined the chat`));

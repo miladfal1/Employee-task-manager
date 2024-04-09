@@ -1,9 +1,14 @@
 <%- include('./partials/head.ejs') %>
 <div class="main-container">
-  <div class="row mt-5 col-center2">
-    <h3 class="col-12 mb-3 col-center">Manage Employees Task</h3>
-    <div class="col-6 mb-3 col-center"><a class="main-container-option" href="/employees">Employee list</a></div>
-    <div class="col-6 mb-3 col-center"><a class="main-container-option" href="/rooms">Rooms</a></div>
+  <div class="swimmer">
+    <div class="col-12 gorw-text" id="let">Let's</div>
+    <div class="col-12 gorw-text" id="grow">Grow</div>
+    <div class="col-12 gorw-text" id="together">Together</div>
+  </div>
+  <div class="row mt-8 col-center2">
+    <div class="col-5 mb-4 text-right"><a class="main-container-option" href="/employees">Employee list</a></div>
+    <div class="col-2 mb-4"><a class="main-container-option" href="/rooms">Rooms</a></div>
+    <div class="col-5 mb-4 text-left"><a class="main-container-option" href="/rooms">Departemans</a></div>
     <div class="col-1"></div>
     <img class="col-2 grow grow1" src="/grow1.png" alt="grow" />
     <img class="col-2 grow grow2" src="/grow2.png" alt="grow" />
@@ -21,26 +26,24 @@
 
     function fadeInOut() {
       if (currentImageIndex >= images.length) {
-        currentImageIndex = 0; // ریست کردن اندیس برای شروع دوباره
+        currentImageIndex = 0;
       }
 
       const currentImage = images[currentImageIndex];
 
-      // fadeIn تصویر فعلی
       currentImage.classList.add("fadeIn");
       currentImage.classList.remove("fadeOut");
 
       setTimeout(() => {
-        // fadeOut تصویر فعلی
         currentImage.classList.add("fadeOut");
         currentImage.classList.remove("fadeIn");
 
         currentImageIndex++;
-        setTimeout(fadeInOut, 1000); // انتظار برای fadeOut قبل از شروع fadeIn بعدی
-      }, 2000); // تنظیم زمان بندی برای ماندن تصویر در حالت نمایان
+        setTimeout(fadeInOut, 1000);
+      }, 2000);
     }
 
-    fadeInOut(); // شروع انیمیشن
+    fadeInOut();
   });
 </script>
 

@@ -3,11 +3,8 @@
 <div class="card">
   <div class="card-header">
     <div class="row">
-      <div class="col-8">
+      <div class="col-12 text-left">
         <h4 class="font-weight-bold"><%= name %> tasks</h4>
-      </div>
-      <div class="col-4">
-        <a href="/<%= id %>/addtask" class="btn btn-success float-right"><i class="fa fa-plus mr-1"></i>Add New Task</a>
       </div>
     </div>
   </div>
@@ -23,9 +20,9 @@
       <tbody>
         <% if(tasks.length > 0) { %> <% for(let task of tasks) { %>
         <tr>
-          <th scope="row"><%= task.title %></th>
-          <td><%= task.completed %></td>
-          <td>
+          <th scope="row" class="tbody-row task-title"><%= task.title %></th>
+          <td class="tbody-row completed"><%= task.completed %></td>
+          <td class="tbody-row">
             <a href="/updatetask/<%= task._id %>" class="btn btn-sm btn-warning"
               ><i class="fa fa-edit" title="edit task"></i
             ></a>
@@ -33,7 +30,7 @@
               ><i class="fa fa-trash" title="delete task"></i
             ></a>
             <a href="/solution/<%= task._id %>" class="btn btn-sm btn-info"
-              ><i class="fa fa-angle-down" title="solution"></i
+              ><i class="fa fa-check" title="solution"></i
             ></a>
           </td>
         </tr>
@@ -46,5 +43,19 @@
     </table>
   </div>
 </div>
+
+<script>
+  const taskTitles = document.querySelectorAll(".tbody-row.task-title");
+  const completions = document.querySelectorAll(".tbody-row.completed");
+
+  completions.forEach((completed, index) => {
+    const taskTitle = taskTitles[index];
+    if (completed.innerText.trim() === "true") {
+      taskTitle.classList.add("overline");
+    } else {
+      taskTitle.classList.remove("overline");
+    }
+  });
+</script>
 
 <%- include('./partials/footer.ejs') %>

@@ -39,6 +39,10 @@ body {
     width: 90% !important;
 }
 
+.col-align-left {
+    text-align: left;
+}
+
 .row {
     margin: 0;
 }
@@ -56,6 +60,7 @@ nav {
 .main-container {
     text-align: center !important;
     width: 100%;
+    position: relative;
 }
 
 .image-container {
@@ -66,12 +71,12 @@ nav {
 }
 
 .main-container-option {
-    color: rgb(241, 241, 241);
+    color: rgba(255, 255, 255, 0.716);
     text-decoration: none;
     border: 1px solid gray;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 1px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .main-container-option:hover {
@@ -80,6 +85,21 @@ nav {
     text-decoration: none;
     background-color: rgba(128, 128, 128, 0.152);
     border-radius: 5px;
+}
+
+.swimmer {
+    position: absolute;
+    left: 5%;
+    height: 21rem;
+    top: 13%;
+}
+.swimmer div {
+    height: 7rem;
+    font-size: 50px;
+    line-height: 7rem;
+    color: rgb(13, 13, 13);
+    opacity: 0.2;
+    transition: opacity 1s ease-in-out;
 }
 
 /*  images ***/
@@ -105,7 +125,9 @@ nav {
     margin: 0 auto !important;
 }
 
-  
+
+/*  employee list css  */
+
 
 /*   card   */
 
@@ -113,6 +135,7 @@ nav {
     margin: 0 auto;
     background-color: rgba(0, 0, 0, 0.422);
     color: rgb(215, 215, 215);
+    width: 90%;
 }
 
 .card-header {
@@ -132,7 +155,35 @@ nav {
     border-top: 1px solid rgba(43, 43, 43, 0.501);
 }
 
+.tbody-row {
+    color: white;
+    opacity: 0.7;
+}
+
+.tbody-row a.btn{
+    padding: 3px 10px;
+}
 
 
 
-/* user tage page */
+
+/* employee tasks page */
+
+.overline {
+    text-decoration: line-through rgb(255, 0, 0);
+}
+
+.task-title {
+    color: rgba(255, 255, 255);
+}
+/* Delete tasks page */
+
+.jumbotron {
+    width: 60%;
+    color: white;
+    margin: 7% auto;
+    background-color: rgb(9, 9, 9);
+    opacity: 0.5;
+}
+
+

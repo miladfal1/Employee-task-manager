@@ -1,0 +1,24 @@
+<%- include('./partials/head.ejs') %>
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="font-weight-bold">My solution</h4>
+  </div>
+  <div class="card-body">
+      <div class="row">
+        <div class="col-6 text-left">
+          <div class="form-group">
+            <div class="bg-primary h4 p-1"><%= task.title %></div>
+            <div class="col-6 h5">my solution</div>
+            <div class="h6">"<%= task.solution%>"</div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <a href="/<%= employee._id %>/task" class="btn btn-light">back</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>

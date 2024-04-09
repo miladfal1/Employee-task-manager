@@ -14,6 +14,7 @@ const taskSchema = new mongoose.Schema({
   },
   solution: {
     type: String,
+    default: "...",
   },
 });
 

@@ -22,11 +22,11 @@
       <tbody class="table-body">
         <% if(Employees.length > 0) { %> <% for(let Employee of Employees) { %>
         <tr>
-          <th scope="row"><%= Employee.name %></th>
-          <td><%= Employee.phonenumber %></td>
-          <td><%= Employee.address %></td>
-          <td><%= Employee.role %></td>
-          <td>
+          <th scope="row" class="tbody-row"><%= Employee.name %></th>
+          <td class="tbody-row"><%= Employee.phonenumber %></td>
+          <td class="tbody-row"><%= Employee.address %></td>
+          <td class="tbody-row"><%= Employee.role %></td>
+          <td class="tbody-row">
             <a href="/<%= Employee._id %>/task" class="btn btn-sm btn-danger"
               ><i class="fa fa-bars" title="all tasks"></i
             ></a>
