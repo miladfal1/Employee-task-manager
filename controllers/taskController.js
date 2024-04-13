@@ -1,10 +1,16 @@
+const TaskService = require("../services/task.service");
+const EmployeeService = require("../services/employee.service");
+const taskService = new TaskService();
+const employeeServie = new EmployeeService();
+
 const Task = require("../models/tasks");
 const Employee = require("../models/employee");
 
 const getUserTask = async (req, res) => {
+  const { title, done } = req.query;
   const id = req.params.id;
-  const list = await Task.find({ owner: id });
-  const findEmployee = await Employee.findById(id);
+  const list = await taskService.getTask(id);
+  const findEmployee = await employeeServie.getEmployee(id);
   const name = findEmployee.name;
   res.render("employeeTask", {
     tasks: list,
@@ -23,19 +29,18 @@ const getCreateTask = async (req, res) => {
 const createTask = async (req, res) => {
   const id = req.params.id;
   const { title } = req.body;
-  const task = await Task.create({
-    title: title,
-    owner: id,
-  });
+  const task = await taskService.createTask(title, id);
   res.redirect(`/admin/allemployee`);
 };
 
 const getDeleteTask = async (req, res) => {
   const id = req.params.id;
   try {
-    const oneTask = await Task.findById(id).exec();
+    const oneTask = await taskService.getTask(id);
+    console.log(id);
     res.render("deleteTask", {
       task: oneTask,
+      id: id,
     });
   } catch (error) {
     res.status(400).send(error.message);
@@ -45,7 +50,9 @@ const getDeleteTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const id = req.params.id;
-    const task = await Task.findByIdAndRemove(id);
+    const task = await taskService.deleteTask(id);
+    console.log(task);
+
     if (!task) return res.status(404).send("task with the given id not found");
     const owner = task.owner;
     res.redirect(`/admin/allemployee`);
@@ -57,9 +64,10 @@ const deleteTask = async (req, res) => {
 const getUpdateTask = async (req, res) => {
   const id = req.params.id;
   try {
-    const oneTask = await Task.findById(id).exec();
+    const oneTask = await taskService.getTask(id);
     res.render("updateTask", {
       task: oneTask,
+      id: id,
     });
   } catch (error) {
     res.status(400).send(error.message);
@@ -71,11 +79,7 @@ const updateTask = async (req, res) => {
   let { title, completed, solution } = req.body;
   completed = completed === "on" ? true : false;
   try {
-    const task = await Task.findByIdAndUpdate(
-      id,
-      { title: title, completed: completed, solution: solution },
-      { new: true }
-    );
+    const task = await taskService.updateTask(id, title, completed, solution);
     const findUser = task.owner;
     res.redirect(`/${findUser}/task`);
   } catch (err) {
@@ -86,7 +90,7 @@ const updateTask = async (req, res) => {
 const getTaskSolution = async (req, res) => {
   const id = req.params.id;
   try {
-    const oneTask = await Task.findById(id).exec();
+    const oneTask = await taskService.getTask(id);
     res.render("taskSolution", {
       task: oneTask,
     });

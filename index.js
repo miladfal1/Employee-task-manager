@@ -2,9 +2,10 @@ const express = require("express");
 const expressLayoutes = require("express-ejs-layouts");
 const cors = require("cors");
 const path = require("path");
-const { chatroom } = require("./controllers/chat.controller");
+const { chatroom } = require("./controllers/chatController");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 const createServer = require("http").createServer;
 const Server = require("socket.io").Server;
@@ -41,8 +42,13 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(flash());
 
-app.set("views", [path.join(__dirname, "views"), path.join(__dirname, "views/admin-panel/")]);
+app.set("views", [
+  path.join(__dirname, "views"),
+  path.join(__dirname, "views/admin-panel/"),
+  path.join(__dirname, "views/landings/"),
+]);
 app.set("view engine", "ejs");
 
 app.use(checkEmployee, employeeRouter);

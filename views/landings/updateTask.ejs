@@ -1,11 +1,11 @@
-<%- include('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %> <%- include('../partials/nav.ejs') %>
 
 <div class="card">
   <div class="card-header">
     <h4 class="font-weight-bold">Update task</h4>
   </div>
   <div class="card-body">
-    <form action="/updatetask/<%= task._id %>" method="post">
+    <form action="/updatetask/<%= id %>" method="post">
       <div class="row">
         <div class="col-6 text-left">
           <div class="form-group">

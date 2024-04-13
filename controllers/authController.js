@@ -1,6 +1,8 @@
-const User = require("../models/user");
+const UserService = require("../services/user.service");
 const jwt = require("jsonwebtoken");
 const bc = require("bcrypt");
+
+const userService = new UserService();
 
 const getLogin = async (req, res) => {
   res.render("login");
@@ -9,7 +11,8 @@ const getLogin = async (req, res) => {
 const login = async (req, res) => {
   const { username, password } = req.body;
   try {
-    const findUser = await User.findOne({ username });
+    const findUser = await userService.getUserByUsername(username);
+
     if (!findUser) {
       throw new Error("username or password is incorrect");
     }
@@ -25,7 +28,7 @@ const login = async (req, res) => {
 
 const Logout = async (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/admin");
+  res.redirect("/");
 };
 
 module.exports = {

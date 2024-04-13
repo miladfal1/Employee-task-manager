@@ -1,11 +1,17 @@
-const User = require("../models/user");
-const Task = require("../models/tasks");
-const Employee = require("../models/employee");
+const UserService = require("../services/user.service");
+const EmployeeService = require("../services/employee.service");
+const TaskService = require("../services/task.service");
+
+const userService = new UserService();
+const employeService = new EmployeeService();
+const taskService = new TaskService();
 
 const getAllUsers = async (req, res) => {
-  const list = await User.find().exec();
+  const list = await userService.getAllUsers();
+  const error = req.flash("flashMessage");
   res.render("userlist", {
     users: list,
+    error,
   });
 };
 
@@ -15,19 +21,14 @@ const getSignup = (req, res) => {
 
 const signup = async (req, res) => {
   const data = req.body;
-  const user = await User.create({
-    username: data.username,
-    password: data.password,
-    phonenumber: data.phonenumber,
-    address: data.address,
-  });
+  const user = await userService.createUser(data.username, data.password, data.phonenumber, data.address);
   res.redirect("/admin/allusers");
 };
 
 const getUpdateUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const oneuser = await User.findById(id).exec();
+    const oneuser = await userService.getUserById(id);
     res.render("updateUser", {
       user: oneuser,
     });
@@ -39,17 +40,7 @@ const getUpdateUser = async (req, res) => {
 const updateUser = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
-  let user = await User.findByIdAndUpdate(
-    id,
-    {
-      username: data.username,
-      password: data.password,
-      phonenumber: data.phonenumber,
-      address: data.address,
-      role: data.role,
-    },
-    { new: true }
-  );
+  let user = await userService.updateUser(id, data.username, data.password, data.phonenumber, data.address, data.role);
   if (!user) return res.status(404).send("User with the given id not found");
 
   res.redirect("/admin/allusers");
@@ -58,7 +49,7 @@ const updateUser = async (req, res) => {
 const getDeleteUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const oneuser = await User.findById(id).exec();
+    const oneuser = await userService.getUserById(id);
     res.render("deleteUser", {
       user: oneuser,
     });
@@ -70,7 +61,7 @@ const getDeleteUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
-    const user = await User.findByIdAndRemove(id);
+    const user = await userService.deleteUser(id);
     if (!user) return res.status(404).send("User with the given id not found");
     res.redirect("/admin/allusers");
   } catch (error) {
@@ -82,32 +73,39 @@ const deleteUser = async (req, res) => {
 //employee management
 
 const getAllEmployee = async (req, res) => {
-  const list = await Employee.find().exec();
+  const list = await employeService.getAllEmployees();
+  const error = req.flash("flashMessage");
   res.render("manageEmployees", {
     Employees: list,
+    error,
   });
 };
 
 const getAddEmployee = (req, res) => {
-  res.render("addEmployee");
+  const error = req.flash("flashMessage");
+  res.render("addEmployee", { error });
 };
 
 const addEmployee = async (req, res) => {
-  const data = req.body;
-  const employee = await Employee.create({
-    name: data.name,
-    password: data.password,
-    phonenumber: data.phonenumber,
-    address: data.address,
-    role: data.role,
-  });
-  res.redirect("/admin/allemployee");
+  try {
+    const data = req.body;
+    const employee = await employeService.addEmployee(
+      data.name,
+      data.password,
+      data.phonenumber,
+      data.address,
+      data.role
+    );
+    res.redirect("/admin/allemployee");
+  } catch (err) {
+    res.flash(err.message);
+  }
 };
 
 const getDeleteEmployee = async (req, res) => {
   try {
     const id = req.params.id;
-    const oneEmployee = await Employee.findById(id).exec();
+    const oneEmployee = await employeService.getEmployee(id);
     res.render("deleteEmployee", {
       employee: oneEmployee,
     });
@@ -119,7 +117,7 @@ const getDeleteEmployee = async (req, res) => {
 const deleteEmployee = async (req, res) => {
   try {
     const id = req.params.id;
-    const employee = await Employee.findByIdAndRemove(id);
+    const employee = await employeService.deleteEmployee(id);
     if (!employee) return res.status(404).send("Employee with the given id not found");
     res.redirect("/admin/allemployee");
   } catch (error) {
@@ -132,8 +130,8 @@ const deleteEmployee = async (req, res) => {
 const profile = async (req, res) => {
   const id = req.params.id;
   try {
-    const findUser = await User.findById(id);
-    const list = await Task.find({ owner: id });
+    const findUser = await employeService.getEmployee(id);
+    const list = await taskService.getTask(id);
     if (!findUser) {
       return res.status(404).send("User with the given id not found");
     }

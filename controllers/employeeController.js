@@ -1,33 +1,40 @@
-const Employee = require("../models/employee");
-const Task = require("../models/tasks");
+const EmployeeService = require("../services/employee.service");
+const TaskService = require("../services/task.service");
 const jwt = require("jsonwebtoken");
+
+const employeeService = new EmployeeService();
+const taskService = new TaskService();
 
 const homePage = async (req, res) => {
   const id = req.params.id;
-  const oneEmployee = await Employee.findById(id).exec();
-  res.render("home");
+  const oneEmployee = await employeeService.getEmployee(id);
+  const error = req.flash("flashMessage");
+  res.render("home", { error });
 };
 
 const getAllEmployee = async (req, res) => {
-  const list = await Employee.find().exec();
+  const list = await employeeService.getAllEmployees();
+  const error = req.flash("flashMessage");
   res.render("employeeList", {
     Employees: list,
+    error,
   });
 };
 
 const getAddEmployee = (req, res) => {
-  res.render("addEmployee");
+  const error = req.flash("flashMessage");
+  res.render("addEmployee", { error });
 };
 
 const addEmployee = async (req, res) => {
   const data = req.body;
-  const employee = await Employee.create({
-    name: data.name,
-    password: data.password,
-    phonenumber: data.phonenumber,
-    address: data.address,
-    role: data.role,
-  });
+  const employee = await employeeService.addEmployee(
+    data.name,
+    data.password,
+    data.phonenumber,
+    data.address,
+    data.role
+  );
   res.redirect("/employees");
 };
 
@@ -48,15 +55,7 @@ const getUpdateEmployee = async (req, res) => {
 const updateEmployee = async (req, res) => {
   const id = req.params.id;
   const data = req.body;
-  let user = await Employee.findByIdAndUpdate(
-    id,
-    {
-      password: data.password,
-      phonenumber: data.phonenumber,
-      address: data.address,
-    },
-    { new: true }
-  );
+  let user = await employeeService.updateEmployee(id, data.password, data.phonenumber, data.address);
   if (!user) return res.status(404).send("Employee with the given id not found");
 
   res.redirect("/employees");
@@ -67,8 +66,9 @@ const updateEmployee = async (req, res) => {
 const employeeProfile = async (req, res) => {
   const id = req.params.id;
   try {
-    const findEmployee = await Employee.findById(id);
-    const list = await Task.find({ owner: id });
+    const findEmployee = await employeeService.getEmployee(id);
+    const list = await taskService.getTask(id);
+
     if (!findEmployee) {
       return res.status(404).send("Employee with the given id not found");
     }
@@ -88,7 +88,7 @@ const getLoginEmployee = async (req, res) => {
 const loginEmployee = async (req, res) => {
   const { name, password } = req.body;
   try {
-    const findEmployee = await Employee.findOne({ name });
+    const findEmployee = await employeeService.findByName(name);
     if (!findEmployee) {
       throw new Error("name or password is incorrect");
     }

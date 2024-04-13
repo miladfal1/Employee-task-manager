@@ -1,4 +1,6 @@
 <%- include('./partials/head.ejs') %>
+<%- include('../partials/nav.ejs') %>
+
   
     <title>Chat Room</title>
       
@@ -13,19 +15,12 @@
           <input id="input" autocomplete="off" /><button>Send</button>
         </form>
       </div>
-    
 
-
-
-
-
-
-
-    <script src="/socket.io/socket.io.js"></script>
+      <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
       <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
           const socket = io();
-    
+        
           const username = "<%= employee.name %>";
           function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -33,17 +28,17 @@
           }
           const roomName = getQueryParam("room");
           document.getElementById("room-name").innerText = roomName || "undifined room";
-    
-          socket.emit('joinRoom', { username, room: roomName });
-    
+        
+          socket.emit("joinRoom", { username, room: roomName });
+        
           // Listen for messages from the server
-          socket.on('message', function(message) {
+          socket.on("message", function (message) {
             outputMessage(message);
             window.scrollTo(0, document.body.scrollHeight);
           });
-    
+        
           const form = document.getElementById("form");
-          form.addEventListener("submit", function(e) {
+          form.addEventListener("submit", function (e) {
             e.preventDefault();
             const input = document.getElementById("input");
             if (input.value) {
@@ -51,7 +46,7 @@
               input.value = "";
             }
           });
-    
+        
           function outputMessage(message) {
             const ul = document.getElementById("messages");
             const li = document.createElement("li");
@@ -59,15 +54,8 @@
             ul.appendChild(li);
           }
         });
+        
       </script>
-
-    
-
-
-    
- 
-
-
 
 
 <%- include('./partials/footer.ejs') %>

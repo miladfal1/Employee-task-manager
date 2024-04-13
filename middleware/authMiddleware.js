@@ -65,15 +65,29 @@ const isAdmin = async (req, res, next) => {
   try {
     const user = await User.findById(res.locals.user);
     if (!user) {
-      return res.status(404).redirect("/admin/allusers");
+      res.redirect("admin");
     }
     if (user.role !== "admin") {
-      return res.status(403).redirect("/admin/allusers");
+      throw new Error("only admin have access");
     }
     next();
   } catch (err) {
-    res.status(500).send(err.message);
+    req.flash("flashMessage", err.message);
+    res.redirect("/admin/allusers");
   }
 };
 
-module.exports = { auth, checkUser, isAdmin, checkEmployee };
+const haveAccesss = async (req, res, next) => {
+  try {
+    const user = await User.findById(res.locals.user);
+    if (!user) {
+      throw new Error("only admins have access");
+    }
+    next();
+  } catch (err) {
+    req.flash("flashMessage", err.message);
+    res.redirect("/admin/allemployee");
+  }
+};
+
+module.exports = { auth, checkUser, isAdmin, checkEmployee, haveAccesss };

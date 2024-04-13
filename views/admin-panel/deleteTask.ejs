@@ -7,9 +7,9 @@
             <h4 class="font-weight-bold text-left"><%= task.title %></h4>
             <p class="lead text-left">Alert! do you want to delete this task??</p>
             <p class="lead">
-            <form action="/deletetask/<%= task._id %>" method="POST">
+            <form action="/admin/deletetask/<%= id %>" method="POST">
                 <button class="btn btn-danger btn-lg" type="submit">Delete</button>
-                <a class="btn btn-light btn-lg" href="/">Cancel</a>
+                <a class="btn btn-light btn-lg" href="/<%= employee._id %>/task">Cancel</a>
             </form>
             </p>
         </div>

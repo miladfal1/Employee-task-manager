@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getRooms, getChatroom } = require("../controllers/chat.controller");
+const { getRooms, getChatroom } = require("../controllers/chatController");
 const { checkEmployee, auth } = require("../middleware/authMiddleware");
 
 router.get("/chatroom", (req, res) => {

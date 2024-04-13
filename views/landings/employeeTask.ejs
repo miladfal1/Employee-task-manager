@@ -1,4 +1,4 @@
-<%- include('./partials/head.ejs') %>
+<%- include('./partials/head.ejs') %> <%- include('../partials/nav.ejs') %>
 
 <div class="card">
   <div class="card-header">
@@ -25,9 +25,6 @@
           <td class="tbody-row">
             <a href="/updatetask/<%= task._id %>" class="btn btn-sm btn-warning"
               ><i class="fa fa-edit" title="edit task"></i
-            ></a>
-            <a href="/deletetask/<%= task._id %>" class="btn btn-sm btn-danger"
-              ><i class="fa fa-trash" title="delete task"></i
             ></a>
             <a href="/solution/<%= task._id %>" class="btn btn-sm btn-info"
               ><i class="fa fa-check" title="solution"></i

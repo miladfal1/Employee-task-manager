@@ -17,44 +17,11 @@
       integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/chatroom.css" />
-    <link rel="stylesheet" href="/style.css" />
     <title>Task Manager App</title>
   </head>
-  <nav class="navbar navbar-expand-lg navbar-dark mb-5">
-    <a class="navbar-brand" href="/">Node js</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarColor01"
-      aria-controls="navbarColor01"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/"
-            >Task Manager App
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <% if(employee) { %>
-    <div class="col-2 col-center">
-      <a style="color: aliceblue">Welcome, <%= employee.name %></a>
-    </div>
-    <div class="col-1 col-center col-nav"><a class="col-nav" href="/<%= employee._id %>/profile">profile</a></div>
-    <div class="col-1 col-center col-nav"><a class="col-nav" href="/logout">logout</a></div>
-    <% } else { %>
-    <div class="col-1 col-center col-nav"><a class="col-nav" href="/login-employee">login</a></div>
-    <% } %>
-    <div class="col-1 col-center"><a class="col-nav" href="/">Home</a></div>
-  </nav>
+ 
   <body class="row justify-content-center"></body>
 </html>
